@@ -6,68 +6,53 @@
 #    By: eseferi <eseferi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/06 16:39:31 by eseferi           #+#    #+#              #
-#    Updated: 2024/03/28 18:26:00 by eseferi          ###   ########.fr        #
+#    Updated: 2024/03/29 14:20:19 by eseferi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -O3
-LIBFT_PATH = ./libft
-LIBFT = $(LIBFT_PATH)/libft.a
-MAKE_LIB = ar -rcs
+NAME       = libftprintf.a
+CC         = gcc
+CFLAGS     = -Wall -Wextra -Iinc -Isrc -O3 -g
 
-#-I <dir> Add directory to include search path
-#By default, GCC will search for header files in the following directories:
-#The directories specified in the built-in include directories (e.g. /usr/include or /usr/local/include on Linux systems).
-#The current directory (.).
-#The directories specified in the CPATH environment variable.
-#"include directories"
-INCS = .
+RM         = rm -rf
 
+# Directories
+SRC_DIR    = src
+OBJ_DIR    = obj
+LIBFT_DIR  = lib/libft
 
-SRCS = ft_printf.c \
-	   ft_putchar_utils.c \
-	   ft_putstr_utils.c \
-	   ft_flags_utils.c \
-	   ft_format_utils.c \
-	   ft_hex_utils.c \
-	   ft_puthex_utils.c \
-	   ft_putnbr_utils.c \
-	   ft_putptr_utils.c \
-	   ft_long_utils.c \
-	   ft_percent_utils.c \
-	   ft_right_combination_utils.c \
-	   ft_left_combination_utils.c \
-	   ft_hexcombos_utils.c \
+# Source files
+PRINTF_SRC = $(wildcard $(SRC_DIR)/*.c)
+LIBFT_SRC  = $(wildcard $(LIBFT_DIR)/*.c)
 
-OBJS = $(SRCS:.c=.o)
+# Object files
+PRINTF_OBJ = $(PRINTF_SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+LIBFT_OBJ  = $(LIBFT_SRC:$(LIBFT_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-bonus : all
-
-all : $(NAME)
-
-$(NAME) : $(OBJS) $(LIBFT) 
-	$(MAKE_LIB) $(NAME) $(OBJS)
-
-%.o : %.c
-	$(CC) $(CFLAGS) -c $< -I$(INCS) 
+all: $(NAME)
 	
-$(LIBFT) :
-	cd $(LIBFT_PATH) && make 
-	cp $(LIBFT) $(NAME) 
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-clean :
-	rm -rf $(OBJS)
-	cd $(LIBFT_PATH) && make clean
+$(NAME): $(PRINTF_OBJ) $(LIBFT_OBJ)
+	@ar rcs $@ $^
+	@echo "\033[1;32m[$(NAME)] Library created successfully.\033[0m"
 
-fclean : clean
-	rm -rf $(NAME)
-	cd $(LIBFT_PATH) && make fclean
+clean:
+	@$(RM) $(OBJ_DIR)
+	@echo "\033[1;33m[$(NAME)] Object files deleted.\033[0m"
 
-clout :
-	rm -rf a.out
+libft_fclean:
+	@$(MAKE) -s -C $(LIBFT_DIR) fclean
+
+fclean: clean libft_fclean
+	@$(RM) $(NAME)
+	@echo "\033[1;31m[$(NAME)] Library deleted.\033[0m"
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re clout
+# Phony targets
+.PHONY: all clean fclean re
+
+.SILENT:

@@ -6,7 +6,7 @@
 /*   By: eseferi <eseferi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:11:41 by eseferi           #+#    #+#             */
-/*   Updated: 2024/03/28 18:22:19 by eseferi          ###   ########.fr       */
+/*   Updated: 2024/03/29 14:01:52 by eseferi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_putstr_format(char *str, t_flags *flags)
 		str = "(null)";
 	if (flags->precision_point)
 	{
-		if (flags->precision_value > ft_strlen(str))
+		if (flags->precision_value > (int)ft_strlen(str))
 			flags->precision_value = ft_strlen(str);
 		if (flags->width - flags->precision_value > 0)
 			count += ft_str_justify(str, flags->precision_value, flags);

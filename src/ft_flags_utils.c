@@ -6,13 +6,12 @@
 /*   By: eseferi <eseferi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:01:36 by eseferi           #+#    #+#             */
-/*   Updated: 2024/03/28 18:23:52 by eseferi          ###   ########.fr       */
+/*   Updated: 2024/03/29 14:00:33 by eseferi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h> //TODO
 #include "ft_printf.h"
-#include "libft/libft.h"
 
 void	ft_refresh_flags(t_flags *flags)
 {
