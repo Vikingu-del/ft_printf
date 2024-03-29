@@ -27,7 +27,7 @@ Include the header file:
 
 Compile your program with libftprintf.a:
 
-    gcc your_program.c libftprintf.a -o your_program
+    gcc your_program.c libftprintf.a  lib/libft/libft.a -o output_executable
 
 Run your program:
 
