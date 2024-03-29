@@ -1,6 +1,0 @@
-[submodule "libft"]
-	path = libft
-	url = https://github.com/Vikingu-del/libft.git
-[submodule "lib/libft"]
-	path = lib/libft
-	url = git@github.com:Vikingu-del/libft.git
