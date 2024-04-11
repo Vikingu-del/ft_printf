@@ -11,6 +11,8 @@ mechanics behind formatting strings in C.
 - Gain insight into string formatting and manipulation.
 - Implement a simplified version of the printf function.
 
+For more check the [subject](subject.pdf)
+
 ## Getting Started
 To compile the ft_printf library, you can use the provided Makefile. Simply navigate to the project directory and run:
 
